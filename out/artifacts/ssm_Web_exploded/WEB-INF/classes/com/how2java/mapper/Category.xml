@@ -21,12 +21,21 @@
 	    </select>
 		<!--update – 映射更新语句-->
 	    <update id="update" parameterType="Category" >
-	        update category_ set name=#{name} where id=#{id}    
+	        update category_ set name=#{name} where id=#{id}
 	    </update>
 
 	    <select id="list" resultType="Category">
-	        select * from   category_      
+			<include refid="queryList"/>
 	    </select>
+
+		<select id="count" resultType="Category">
+			<include refid="queryList"/>
+		</select>
+
+		<!--重用的sql语句-->
+		<sql id="queryList">
+			SELECT * FROM category_
+		</sql>
 
 	<!--
 cache – 给定命名空间的缓存配置。

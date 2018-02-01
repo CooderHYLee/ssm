@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+	<!--对应mapper中的CategoryMapper-->
+	<!--namespace 对应的是mapper中得的mapper-->
+	<mapper namespace="com.how2java.mapper.CategoryMapper">
+		<!--insert – 映射插入语句-->
+		<!--id=属性字段 parameterType=接受一个xxxx类型的参数 resultType=字段的返回类型-->
+	    <insert id="add" parameterType="Category" >
+	        insert into category_ ( name ) values (#{name})    
+	    </insert>
+	    <!--delete – 映射删除语句-->
+	    <delete id="delete" parameterType="Category" >
+	        delete from category_ where id= #{id}   
+	    </delete>
+	    <!--select – 映射查询语句-->
+	    <select id="get" parameterType="_int" resultType="Category">
+	        select * from   category_  where id= #{id}    
+	    </select>
+		<!--update – 映射更新语句-->
+	    <update id="update" parameterType="Category" >
+	        update category_ set name=#{name} where id=#{id}    
+	    </update>
+
+	    <select id="list" resultType="Category">
+	        select * from   category_      
+	    </select>
+
+	<!--
+cache – 给定命名空间的缓存配置。
+cache-ref – 其他命名空间缓存配置的引用。
+resultMap – 是最复杂也是最强大的元素，用来描述如何从数据库结果集中来加载对象。
+parameterMap – 已废弃！老式风格的参数映射。内联参数是首选,这个元素可能在将来被移除，这里不会记录。
+sql – 可被其他语句引用的可重用语句块。-->
+
+	</mapper>
+

@@ -24,6 +24,7 @@
 	        update category_ set name=#{name} where id=#{id}
 	    </update>
 
+		<!--查看全部列表-->
 	    <select id="list1" resultType="Category">
 			<include refid="queryList"/>
 	    </select>

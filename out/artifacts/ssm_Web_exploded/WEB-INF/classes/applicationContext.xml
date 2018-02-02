@@ -11,9 +11,6 @@
      http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
      http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
      http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
-	
-	
-	
 
    <context:annotation-config />
 	<context:component-scan base-package="com.how2java.service" />
@@ -28,23 +25,33 @@
 	  </property>  
 	  <property name="username">  
 	      <value>root</value>  
-	  </property>  
+	  </property>
+		<!-- 改成本地mysql 账户和密码-->
 	  <property name="password">  
 	      <value></value>
 	  </property>  	
 	</bean>
 	
-	
 	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="typeAliasesPackage" value="com.how2java.pojo" />
 		<property name="dataSource" ref="dataSource"/>
 		<property name="mapperLocations" value="classpath:com/how2java/mapper/*.xml"/>
+		<!--添加 pagehelper 插件来分页-->
+		<property name="plugins">
+			<array>
+				<bean class="com.github.pagehelper.PageInterceptor">
+					<property name="properties">
+						<!--使用下面的方式配置参数，一行配置一个 -->
+						<value>
+						</value>
+					</property>
+				</bean>
+			</array>
+		</property>
 	</bean>
 
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="com.how2java.mapper"/>
 	</bean>
-	
-
 
 </beans>

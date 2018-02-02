@@ -3,6 +3,8 @@ package com.how2java.controller;
 
 import java.util.List;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.how2java.util.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -64,6 +66,25 @@ public class CategoryController {
 
 		}
 
+		return mav;
+	}
+
+	@RequestMapping("listPageHelperCategory")
+	public ModelAndView listPageHelperCategory(Page page){
+
+		ModelAndView mav = new ModelAndView();
+		if(page.getStart()>-1){
+			//用PageHelper来分页
+			PageHelper.offsetPage(page.getStart(),page.getCount());
+
+			List<Category> cs = categoryService.list();
+			//用PageHelper来获取总条数
+			int total = (int) new PageInfo<>(cs).getTotal();
+			page.caculateLast(total);
+
+			mav.addObject("cs",cs);
+			mav.setViewName("listPageHelperCategory");
+		}
 		return mav;
 	}
 }

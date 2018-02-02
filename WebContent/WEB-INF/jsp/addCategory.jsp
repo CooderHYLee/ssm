@@ -45,6 +45,12 @@
                    value="查看分页列表">
         </p>
     </form>
+    <form  action="listPageHelperCategory" method="post">
+        <p id="3">
+            <input id="submit3" type="submit" tabindex="1"
+                   value="查看pageHelper分页列表">
+        </p>
+    </form>
 </div>
 
 </body>

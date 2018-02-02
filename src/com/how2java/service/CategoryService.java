@@ -15,4 +15,10 @@ public interface CategoryService {
 
 	List<Category> list(Page page);
 
+	Category get(int i);
+
+	void update(Category category);
+
+	void delete(Category category);
+
 }

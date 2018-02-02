@@ -87,4 +87,32 @@ public class CategoryController {
 		}
 		return mav;
 	}
+
+	@RequestMapping("editCategory")
+	public ModelAndView editCategory(Category category){
+		Category c= categoryService.get(category.getId());
+		ModelAndView mav = new ModelAndView("editCategory");
+		mav.addObject("c", c);
+		return mav;
+	}
+	@RequestMapping("updateCategory")
+	public ModelAndView updateCategory(Category category){
+		categoryService.update(category);
+		ModelAndView mav = new ModelAndView("redirect:/listPageHelperCategory");
+		return mav;
+	}
+
+	@RequestMapping("addCategory")
+	public ModelAndView addCategory(Category category){
+		categoryService.add(category);
+		ModelAndView mav = new ModelAndView("redirect:/listPageHelperCategory");
+		return mav;
+	}
+
+	@RequestMapping("deleteCategory")
+	public ModelAndView deleteCategory(Category category){
+		categoryService.delete(category);
+		ModelAndView mav = new ModelAndView("redirect:/listPageHelperCategory");
+		return mav;
+	}
 }

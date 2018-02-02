@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
-	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 	<!--对应mapper中的CategoryMapper-->
 	<!--namespace 对应的是mapper中得的mapper-->
@@ -24,7 +24,8 @@
 	        update category_ set name=#{name} where id=#{id}
 	    </update>
 
-	    <select id="list" resultType="Category">
+		<!--查看全部列表-->
+	    <select id="list1" resultType="Category">
 			<include refid="queryList"/>
 	    </select>
 
@@ -37,12 +38,27 @@
 			SELECT * FROM category_
 		</sql>
 
-	<!--
-cache – 给定命名空间的缓存配置。
-cache-ref – 其他命名空间缓存配置的引用。
-resultMap – 是最复杂也是最强大的元素，用来描述如何从数据库结果集中来加载对象。
-parameterMap – 已废弃！老式风格的参数映射。内联参数是首选,这个元素可能在将来被移除，这里不会记录。
-sql – 可被其他语句引用的可重用语句块。-->
+		<!--分页列表-->
+	    <!--limit #{start},#{count}  limit 10，10 从第11条开始取10-->
+		<select id="list" resultType="Category">
+			<include refid="queryList"/>
+			<if test="start!=null and count!=null">
+				limit #{start},#{count}
+			</if>
+		</select>
+
+		<!--count(*) 表示条数-->
+		<select id="total" resultType="int">
+			select count(*) from category_
+		</select>
+
+		<!--
+		cache – 给定命名空间的缓存配置。
+		cache-ref – 其他命名空间缓存配置的引用。
+		resultMap – 是最复杂也是最强大的元素，用来描述如何从数据库结果集中来加载对象。
+		parameterMap – 已废弃！老式风格的参数映射。内联参数是首选,这个元素可能在将来被移除，这里不会记录。
+		sql – 可被其他语句引用的可重用语句块。
+		-->
 
 	</mapper>
 

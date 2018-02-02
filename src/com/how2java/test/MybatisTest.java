@@ -28,7 +28,7 @@ public class MybatisTest {
 	@Test
 	public void testList() {
 		System.out.println(categoryMapper);
-		List<Category> cs=categoryMapper.list();
+		List<Category> cs=categoryMapper.list1();
 		for (Category c : cs) {
 			System.out.println(c.getName());
 		}
@@ -48,7 +48,7 @@ public class MybatisTest {
 		categoryMapper.delete(9);
 		categoryMapper.delete(10);
 		System.out.println("delete");
-		List<Category> ls = categoryMapper.list();
+		List<Category> ls = categoryMapper.list1();
 		for (Category c : ls){
 			System.out.println("id是："+c.getId()+"--name是："+c.getName());
 		}
@@ -60,7 +60,7 @@ public class MybatisTest {
 		cnew.setName("updateCategory");
 		cnew.setId(1);
 		categoryMapper.update(cnew);
-		List<Category> ls = categoryMapper.list();
+		List<Category> ls = categoryMapper.list1();
 		System.out.println("update:");
 		for (Category c : ls){
 			System.out.println("id是："+c.getId()+"--name是："+c.getName());

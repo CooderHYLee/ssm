@@ -33,6 +33,18 @@
             </p>
         </fieldset>
     </form>
+    <form  action="listCategory" method="post">
+        <p id="1">
+            <input id="submit1" type="submit" tabindex="1"
+                   value="查看普通列表">
+        </p>
+    </form>
+    <form  action="listPageCategory" method="post">
+        <p id="2">
+            <input id="submit2" type="submit" tabindex="1"
+                   value="查看分页列表">
+        </p>
+    </form>
 </div>
 
 </body>

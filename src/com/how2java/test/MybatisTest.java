@@ -2,6 +2,7 @@ package com.how2java.test;
 
 import java.util.List;
 
+import com.how2java.service.CategoryService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +19,19 @@ public class MybatisTest {
 	@Autowired
 	private CategoryMapper categoryMapper;
 
+	@Autowired
+	private CategoryService categoryService;
+
 	@Test
 	public void testAdd() {
 		Category category = new Category();
 		category.setName("new Category");
-		categoryMapper.add(category);
+		int x = 0;
+		while (x<20){
+			categoryMapper.add(category);
+			x++;
+		}
+
 	}
 
 	@Test
@@ -34,11 +43,11 @@ public class MybatisTest {
 		}
 	}
 
-	@Test
-	public void testGet(){
-		Category c1 = categoryMapper.get(2);
-		System.out.println("c1是 ："+c1.getName());
-	}
+//	@Test
+//	public void testGet(){
+//		Category c1 = categoryMapper.get(2);
+//		System.out.println("c1是 ："+c1.getName());
+//	}
 
 	@Test
 	public void testDelete(){
@@ -72,5 +81,11 @@ public class MybatisTest {
 		List<Category> c = categoryMapper.count();
 		System.out.println("count是 :"+c.size());
 	}
+
+//	@Test
+//	public void testAddTwo(){
+//		categoryService.deleteAll();
+//		categoryService.addTwo();
+//	}
 
 }

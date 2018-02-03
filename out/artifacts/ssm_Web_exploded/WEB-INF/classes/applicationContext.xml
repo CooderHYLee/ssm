@@ -68,6 +68,7 @@
 		<property name="typeAliasesPackage" value="com.how2java.pojo" />
 		<property name="dataSource" ref="dataSource"/>
 		<property name="mapperLocations" value="classpath:com/how2java/mapper/*.xml"/>
+
 		<!--添加 pagehelper 插件来分页-->
 		<property name="plugins">
 			<array>
@@ -84,6 +85,12 @@
 
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="com.how2java.mapper"/>
+	</bean>
+
+	<!--添加事务管理器和事务注解扫描器-->
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
 	</bean>
 
 </beans>

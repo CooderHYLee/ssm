@@ -68,6 +68,7 @@
 		<property name="typeAliasesPackage" value="com.how2java.pojo" />
 		<property name="dataSource" ref="dataSource"/>
 		<property name="mapperLocations" value="classpath:com/how2java/mapper/*.xml"/>
+
 		<!--添加 pagehelper 插件来分页-->
 		<property name="plugins">
 			<array>
@@ -85,5 +86,27 @@
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="com.how2java.mapper"/>
 	</bean>
+
+	<!--添加事务管理器和事务注解扫描器-->
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<!--支持AOP方式-->
+	<tx:advice id="txadvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="add*" propagation="REQUIRED" rollback-for="Exception" />
+			<tx:method name="del*" propagation="REQUIRED" rollback-for="Exception"/>
+			<tx:method name="edit*" propagation="REQUIRED" rollback-for="Exception" />
+			<tx:method name="update*" propagation="REQUIRED" rollback-for="Exception"/>
+			<tx:method name="list*" propagation="REQUIRED" rollback-for="Exception"/>
+		</tx:attributes>
+	</tx:advice>
+
+	<aop:config>
+		<aop:pointcut id="serviceMethod" expression="execution(* com.how2java.service.*.*(..))"/>
+		<aop:advisor pointcut-ref="serviceMethod" advice-ref="txadvice"/>
+	</aop:config>
 
 </beans>

@@ -1,8 +1,10 @@
 package com.how2java.controller;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
+import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.how2java.util.Page;
@@ -10,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.how2java.pojo.Category;
@@ -114,5 +118,42 @@ public class CategoryController {
 		categoryService.delete(category);
 		ModelAndView mav = new ModelAndView("redirect:/listPageHelperCategory");
 		return mav;
+	}
+
+
+	@ResponseBody
+	@RequestMapping("/submitCategory")
+	public String submitCategory(@RequestBody Category category){
+		System.out.println("SSM接受到浏览器提交的json，并转换为Category对象:\n"+category);
+		JSONObject result = new JSONObject();
+		result.put("OK", "OK");
+		//这里会将OK返回到 ajax 中的回调函数中
+		return result.toJSONString();
+	}
+
+
+	@ResponseBody
+	@RequestMapping("/getOneCategory")
+	public String getOneCategory() {
+		Category c = new Category();
+		c.setId(100);
+		c.setName("第100个分类");
+		JSONObject json= new JSONObject();
+		json.put("category", JSONObject.toJSON(c));
+		return json.toJSONString();
+	}
+
+	@ResponseBody
+	@RequestMapping("/getManyCategory")
+	public String getManyCategory() {
+		List<Category> cs = new ArrayList<>();
+		for (int i = 0; i < 10; i++) {
+			Category c = new Category();
+			c.setId(i);
+			c.setName("分类名称:"+i);
+			cs.add(c);
+		}
+
+		return JSONObject.toJSON(cs).toString();
 	}
 }

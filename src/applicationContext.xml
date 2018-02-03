@@ -14,6 +14,18 @@
 
    <context:annotation-config />
 	<context:component-scan base-package="com.how2java.service" />
+
+	<!--json处理。-->
+	<mvc:annotation-driven >
+		<mvc:message-converters register-defaults="true">
+			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+				<property name="supportedMediaTypes" value="text/plain;charset=UTF-8" />
+			</bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+
+	<mvc:default-servlet-handler />
+
 	<!--每一次数据库连接和关闭都很耗资源-->
 	<!--连接池 ：如果不关闭连接，而是暂时存放起来，当别人使用时，把这个连接给他们使用。就避免了一次建立数据库连接和断开的操作时间消耗-->
 	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
